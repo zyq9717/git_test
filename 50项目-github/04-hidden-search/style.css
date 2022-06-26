@@ -1,0 +1,123 @@
+/* 分析：动画效果实现的关键 */
+/* 点击搜索按钮，按钮沿着x轴向右移动198px（动画1），搜索框宽度变为200px（动画2） */
+/* 1. 按钮完全压住搜索框 */
+/* 两者宽高一致，按钮通过绝对定位和偏移量移动到搜索框上面 */
+/* 两者都要添加过渡效果，搜索框给 width属性添加，按钮给transform属性添加 */
+/* .input {
+    height: 50px;
+    width: 50px;
+    transition: width 0.3s ease;
+} 
+.btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: 50px;
+    width: 50px;
+
+    transition: transform 0.3s ease;
+} */
+
+/* 2. 通过js给按钮绑定点击事件，给搜索框和按钮所在的大盒子添加 类名 active ，添加active类名达成两个类名紧挨着，添加样式*/
+/* 搜索框和按钮的大盒子一开始没有active类名，所以就不会添加下述样式 */
+
+/* .search.active .input {
+    width: 200px;
+}
+
+.search.active .btn {
+    transform: translateX(198px);
+} */
+
+
+
+/* 1. 引入外部资源文件 自定义字体模块 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* 2. 全局样式-css3盒子模型 */
+* {
+    box-sizing: border-box;
+}
+
+/* 3. body样式 */
+body {
+    /* 渐变轴为90度 */
+    background-color: linear-gradient(90deg, #7d5fff, #7158e2);
+    font-family: 'Roboto', sans-serif;
+
+    /* flex布局 */
+    display: flex;
+    /* 子项在侧轴居中对齐 */
+    align-items: center;
+    /* 子项在主轴居中对齐 */
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+
+/* 4. search盒子 */
+.search {
+    /* 相对定位 */
+    position: relative;
+    height: 50px;
+}
+
+/* 5. 搜索框 */
+.search .input {
+    background-color: #fff;
+    /* 去掉边框 */
+    border: 0;
+    font-size: 18px;
+    /* 内边距 */
+    padding: 15px;
+    height: 50px;
+    width: 50px;
+    /* 给宽度设置动画效果 */
+    transition: width 0.3s ease;
+}
+
+/* 在js中给按钮绑定点击事件，点击之后给搜索框添加类名，拉伸，触发动画和过渡效果 */
+
+/* 6. 按钮 */
+.btn {
+    background-color: #fff;
+    border: 0;
+    cursor: pointer;
+    font-size: 24px;
+
+    /* 设置绝对定位 */
+    /* 压在了搜索框上面 */
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* 大小与搜索框一致 */
+    /* 这样才能完全压住 */
+    height: 50px;
+    width: 50px;
+
+    /* 给按钮的 transform 添加过渡效果*/
+    /* 点击按钮之后，按钮会向右移动 */
+    /* 是在点击之后给按钮设置transform样式吗？ */
+    transition: transform 0.3s ease;
+}
+
+/* 给按钮和搜索框设置伪类元素，当按钮和搜索框处于焦点选中状态时，添加以下样式 */
+.btn:focus,
+input:focus {
+    /* 去掉轮廓 */
+    outline: none;
+}
+
+/* 当大的搜索框盒子获得 active 类名时，它的子元素搜索框的宽度变为 200px 它的子元素按钮在x上移动198px*/
+
+.search.active .input {
+    width: 200px;
+}
+
+.search.active .btn {
+    transform: translateX(198px);
+}

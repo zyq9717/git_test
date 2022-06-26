@@ -1,0 +1,52 @@
+/* flex布局经常出现，但大多数时候，只是为了水平垂直对齐 */
+
+/* 1. 导入外部资源文件 */
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+/* 2. 设置全局样式 css3盒子模型 */
+* {
+    box-sizing: border-box;
+}
+
+/* 3. body样式 */
+body {
+    /* 字体 */
+    font-family: 'Ubuntu', sans-serif;
+
+    /* flex布局 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+    overflow: hidden;
+    /* 覆盖浏览器自定义的外边距 */
+    margin: 0;
+}
+
+/* 4. 背景图片样式 */
+.bg {
+    /* 背景图片 */
+    background: url('https://images.unsplash.com/photo-1576161787924-01bb08dad4a4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2104&q=80') no-repeat center center/cover;
+
+    /* 绝对定位  脱标  相对于父级元素，或者body */
+    position: absolute;
+    /* 向上移动 */
+    top: -30px;
+    /* 向左移动 */
+    left: -30px;
+
+    width: calc(100vw + 60px);
+    height: calc(100vh + 60px);
+
+    /* 堆叠层级为-1 */
+    z-index: -1;
+
+    /* 滤镜属性 */
+    filter: blur(0px);
+}
+
+.loading-text {
+    font-size: 50px;
+    color: #fff;
+}

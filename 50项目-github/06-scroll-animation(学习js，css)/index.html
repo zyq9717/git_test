@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<!-- css和js的关键 -->
+<!-- css -->
+<!-- 使用fle布局让box以y轴为主轴，并在页面水平居中对齐 -->
+<!-- 使用transform让从第四个box开始，向右移动box自身宽度的400% -->
+<!-- 使用 nth-of-type(even)和transform 让从第四个box开始,偶数位的box覆盖原有的动画效果,向左移动自身宽度额400% -->
+<!-- 通过 .box.show 和 transform 在box添加show类名之后，移动会原来的位置 -->
+
+<!-- js -->
+<!-- 获取到所有box元素 -->
+<!-- 给window绑定scroll事件 -->
+<!-- 当页面卷动时（滑动时）： -->
+<!-- 当 box.getBoundingClientRect().top box上沿距离浏览器窗口上沿的高度 < window.innerHeight / 5 * 4 浏览器可视窗口高度的五分之四时  给box添加show类名 -->
+<!-- 当 box.getBoundingClientRect().top box上沿距离浏览器窗口上沿的高度 >= window.innerHeight / 5 * 4 浏览器可视窗口高度的五分之四时  给box删除show类名 -->
+
+
+<body>
+    <h1>Scroll to see the animation</h1>
+
+    <!-- 最开始的三个box如何不受卷动事件的控制，一开始就在页面当中原本的位置出现 -->
+    <div class="box show">
+        <h2>Content</h2>
+    </div>
+    <div class="box show">
+        <h2>Content</h2>
+    </div>
+    <div class="box show">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <div class="box">
+        <h2>Content</h2>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

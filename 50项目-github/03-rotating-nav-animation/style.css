@@ -1,0 +1,255 @@
+/* 样式设置的顺序，是从上到下，从大到小，从外而内的 */
+/* transform-origin 属性的用法 */
+/* 添加了show-nav的container元素旋转 逆时针旋转20度 */
+/* 添加了show-nav的container元素的circle子元素 逆时针旋转70度 */
+
+/* 分成 container-circle 和 circle 两个盒子的原因？ */
+/* container-circle 要设置固定定位 而circle要设置相对定位吗？ */
+/* 固定定位的子盒子能够设置绝对定位，并且有原来的效果吗？ */
+
+/* 为什么不给 container-circle 设置高度宽度，而是给它的子元素circle设置？ */
+
+/* 1. 引入外部资源文件-自定义字体模块 */
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+
+/* 2. 全局设置为css3盒子 */
+* {
+    box-sizing: border-box;
+}
+
+/* 3. 设置body样式 */
+/* 特点：在body中设置溢出隐藏 */
+body {
+    /* 字体 */
+    font-family: 'lato', sans-serif;
+    /* 背景颜色 */
+    background-color: #333;
+    /* 颜色 */
+    color: #222;
+    /* 左右溢出隐藏 */
+    overflow-x: hidden;
+    /* 外边距 = 0 */
+    margin: 0;
+}
+
+
+/* 4. container */
+.container {
+    /* 背景颜色 */
+    background-color: #fafafa;
+
+    /* transform-orgin: 属性允许您更改转换元素的位置。 */
+    /* 使用此属性必须先使用 transform 属性 */
+    /* 2D转换元素可以改变元素的X和Y轴。 3D转换元素，还可以更改元素的Z轴。 */
+    /* transform-origin: x-axis y-axis z-axis; */
+
+    /* 可以改变元素在x轴和y轴的位置  改变的方向是：y轴向上移动，x轴向左移动 */
+    /* 改变的旋转圆点的位置 */
+    /* top left 改为左上角 */
+    transform-origin: top left;
+    /* 如果不加 transfor-orign 那么container元素就只是会以旋转原点为基点，旋转20度 */
+
+    /* 过渡效果 */
+    /* transform 是要改变的属性 */
+    transition: transform 0.5s linear;
+    /* 添加之后，动画效果变得很自然 */
+
+    /* 宽度 */
+    width: 100vw;
+    /* 最小高度 */
+    min-height: 100vh;
+    /* 内边距 */
+    padding: 50px;
+}
+
+/* 同时具备 container 和 show-nav类名的元素 */
+/* 也就是给container元素又添加了 show-nav */
+.container.show-nav {
+    /* rotate 2D旋转 */
+    /* 旋转圆点为基点 不是x轴也不是y轴 是元素的中央*/
+    /* -20deg 逆时针旋转20度 */
+    transform: rotate(-20deg);
+}
+
+/* 4.1 circle-container  */
+.circle-container {
+    /* 固定定位 */
+    /* 目的：是让导航栏按钮的大盒子固定在 浏览器可视区 的某个位置，不随页面滚动而移动 */
+    position: fixed;
+    /* 偏移量 */
+    /* 向上移动100px */
+    top: -100px;
+    /* 向左移动100px */
+    left: -100px;
+
+    /* 结果：只剩下右下角显示在页面当中 */
+
+    /* 不设置宽度高度，而给子元素设置，为什么 */
+}
+
+/* 4.1.1 circle */
+.circle {
+    /* 背景颜色 */
+    background-color: #fafa7979;
+    /* 高度 */
+    height: 200px;
+    /* 宽度 */
+    width: 200px;
+
+    /* 相对定位 */
+    /* 设置相对定位的目的是什么？ */
+    /* 子元素设置绝对定位 */
+    position: relative;
+
+    /* 为transform设置过渡动画 */
+    transition: transform 0.5s linear;
+}
+
+/* 同时具备 container 和 show-nav类名的元素 的circle */
+/* 就是添加了 show-nav 类名的container元素的子元素circle */
+
+.container.show-nav .circle {
+    /* 逆时针旋转70度 */
+    transform: rotate(-70deg);
+
+    /* 因为父元素container本身hi旋转20度，所以这里只需要旋转70度即可，20+70=90 */
+}
+
+/* 4.1.1.1.1 button */
+.circle button {
+    cursor: pointer;
+
+    /* 绝对定位 */
+    position: absolute;
+    /* 向下移动父元素宽度的50% */
+    top: 50%;
+    /* 向右移动父元素宽度的50% */
+    left: 50%;
+
+    height: 100px;
+    /* 背景透明 */
+    /* 能够看到这个元素下面元素的内容 */
+    background: transparent;
+    border: 0;
+    font-size: 26px;
+    color: #fff;
+}
+
+/* 按钮处于获得焦点状态时的样式 */
+.circle button:focus {
+    /* 轮廓消失 */
+    outline: none;
+}
+
+/* button#open 匹配是button标签 并且id是open的元素 */
+.circle button#open {
+    /* 向右移动父元素宽度的60% */
+    left: 60%;
+}
+
+.circle button#close {
+    /* 向上移动父元素高度的60% */
+    top: 60%;
+    /* 顺时针旋转90度 */
+    transform: rotate(90deg);
+    /* 允许改变元素的位置 */
+    transform-origin: top left;
+}
+
+
+/* 选择出 添加了show-nav类名的container元素 相邻的 nav里面的li */
+/* + 相邻兄弟选择器 */
+
+/* nav的li */
+
+.container.show-nav+nav li {
+    /* 沿着x轴移动 0 */
+    transform: translateX(0);
+    /* 过渡效果，延迟0.3s */
+    transition-delay: 0.3s;
+}
+
+/* 5.nav  */
+nav {
+    /* 固定定位 */
+    position: fixed;
+    /* 向上移动40px */
+    bottom: 40px;
+    left: 0;
+    z-index: 100;
+}
+
+/* 5.1 ul */
+nav ul {
+    list-style-type: none;
+    padding-left: 30px;
+}
+
+/* 5.1.1 li */
+nav ul li {
+    /* 英文字母大写 */
+    text-transform: uppercase;
+    color: #fff;
+    margin: 40px 0;
+    /* 沿着x轴移动 -100%？ */
+    transform: translateX(-100%);
+    transition: transform 0.42 ease-in;
+}
+
+/* 5.1.1.1 i */
+nav ul li i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+/* 不明白 */
+nav ul li+li {
+    margin-left: 15px;
+    transform: translateX(-150%);
+}
+
+nav ul li+li+li {
+    margin-left: 30px;
+    transform: translateX(-200%);
+}
+
+
+nav a {
+    color: #fafafa;
+    /* 去掉下划线 */
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+nav a:hover {
+    color: #FF7979;
+    font-weight: bold;
+}
+
+
+
+
+/* 6. content */
+.content img {
+    max-width: 100%;
+}
+
+.content {
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+.content h1 {
+    margin: 0;
+}
+
+.content small {
+    color: #555;
+    font-style: italic;
+}
+
+.content p {
+    color: #333;
+    line-height: 1.5;
+}

@@ -1,0 +1,229 @@
+/* vietnamese */
+/* @font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/muli/v27/7Aulp_0qiz-aVz7u3PJLcUMYOFnOkEk40eiNxw.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+} */
+
+/* latin-ext */
+/* @font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/muli/v27/7Aulp_0qiz-aVz7u3PJLcUMYOFnOkEk50eiNxw.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+} */
+
+/* latin */
+/* @font-face {
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/muli/v27/7Aulp_0qiz-aVz7u3PJLcUMYOFnOkEk30eg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+} */
+
+/* 1. 引入外部资源文件 自定义字体模块 */
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+/* 2. 设置CSS 变量 */
+/* CSS变量经常定义在 :root 伪类选择器内，这样会被所有的选择器继承 */
+/* :root 伪类选择器是一个能够匹配文档根元素的选择器 */
+/* 在:root选择器中创建的变量在全局都可用，在任何选择器中都能生效 */
+:root {
+    /* 设置的两个变量，都是颜色 */
+    --line-border-fill: #3498db;
+    --line-border-empty: #e0e0e0;
+}
+
+/* 3. css3盒子模型 */
+* {
+    box-sizing: border-box;
+}
+
+
+/* 技术选型：flex布局 */
+
+
+/* 1. body */
+body {
+    /* 设置页面的背景颜色 */
+    background-color: #f6f7fb;
+    /* 设置字体 */
+    font-family: 'Muli', sans-serif;
+
+    /* 使用flex 弹性布局 */
+    display: flex;
+    /* 子项在侧轴（纵轴，垂直方向）居中对齐 */
+    align-items: center;
+    /* 子项在主轴（横轴，水平方向）居中对齐 */
+    justify-content: center;
+    /* 以上两个语句，使得body所有元素在页面中央显示 */
+
+    height: 100vh;
+
+    /* 在这里的作用是溢出隐藏吗？ */
+    overflow: hidden;
+
+    /* body的外边距设置为0 */
+    margin: 0;
+    /* 这么做的目的是什么？ */
+    /* 目的是：清除浏览器中默认的body的内外边距 */
+
+}
+
+
+/* 2. container 盒子 */
+.container {
+    /* 文本居中对齐 */
+    text-align: center;
+
+    /* text-align 属性会被继承 */
+}
+
+
+/* 通过给 每个 progress 的父容器添加 display: flex; 来使得子项能够强制沿着主轴一行显示 */
+
+/* 3. progress-container 盒子 （container盒子的第一个大盒子）*/
+.progress-container {
+    /* 使用flex布局 */
+    /* 所有子项默认一行显示 */
+    display: flex;
+
+    /* 子项沿着元素主轴两端对齐 */
+    justify-content: space-between;
+
+    /* 添加相对定位 */
+    position: relative;
+    /* 作用是什么？ */
+    /* 只是为了方便子元素添加绝对定位吗？ */
+
+    /* 设置下外边距 */
+    margin-bottom: 30px;
+    /* 设置宽度 */
+    /* 单位使用的是px，不采用vx吗？ */
+    width: 350px;
+}
+
+
+/* 4. 给progress-container 内部的最前面 插入 ::before 伪元素 */
+/* 添加伪元素的目的是什么？ */
+/* 删除也没有什么影响啊？？？ */
+.progress-container::before {
+    /* 没有插入任何内容 */
+    content: "";
+
+    /* 使用自定义变量 */
+    /* 为什么要通过自定义变量为其添加背景颜色？ */
+    background-color: var(--line-border-empty);
+
+    /* 绝对定位 */
+    position: absolute;
+    /* 设置绝对定位的目的是什么？ */
+    top: 50%;
+    left: 0;
+    /* 沿着y轴移动元素自身高度的一半 */
+    transform: translateY(-50%);
+
+    height: 4px;
+    /* 设置宽度为父级的0% */
+    /* 这么设置的原因是什么？ */
+    width: 0%;
+    z-index: -1;
+    transition: 0.4s ease;
+}
+
+
+/* 4. progress */
+/* 设置的样式几乎和::before一样 */
+.progress {
+    /* 为什么要通过自定义css变量来添加背景颜色？ */
+    background-color: var(--line-border-fill);
+
+    /* 设置绝对定位的目的是什么？ */
+    /* 只是为了移动位置吗？设置对齐方式吗？ */
+    position: absolute;
+    /* 设置元素垂直居中对齐 */
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+
+    height: 4px;
+    /* 设置宽度为父级的0% */
+    /* 这么设置的原因是什么？ */
+    width: 0%;
+    z-index: -1;
+    translate: 0.4s ease;
+}
+
+/* 5. circle */
+.circle {
+    background-color: #fff;
+    color: #999;
+    /* 将元素设置为圆形 */
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+
+    /* 设置为flex布局 */
+    /* 目的是什么？ */
+    /* 只是为了里面的数字对齐吗？ */
+    display: flex;
+    /* 子项在侧轴居中对齐 */
+    align-items: center;
+    /* 子项在主轴居中对齐 */
+    justify-content: center;
+
+    /* 设置变宽 */
+    border: 3px solid var(--line-border-empty);
+
+    /* 设置过渡效果 是为了后面的动画效果做准备吗？ */
+    transform: 0.4s ease;
+}
+
+/* 只有当某个元素同时使用 circle 和 active 这两个类时，才会设置以下样式 */
+/* 原来点击按钮，给变宽填充颜色是这么实现的 */
+/* 6. js点击添加类名 */
+.circle.active {
+    border-color: var(--line-border-fill);
+}
+
+/* ！！！过渡效果+点击添加类，由此获得颜色样式：实现了逐渐填充边框颜色的效果 */
+
+/* 7. btn */
+.btn {
+    background-color: var(--line-border-fill);
+    color: #999;
+    border: 0;
+    border-radius: 6px;
+    /* 鼠标 */
+    cursor: pointer;
+    font-family: inherit;
+    /* 不给按钮设置宽度高度，而是通过padding撑开 */
+    padding: 8px 30px;
+    margin: 5px;
+    font-size: 14px;
+    /* width: 70px;
+    height: 30px; */
+}
+
+/* 8. 给btn设置active伪类 */
+
+/* 点击按钮时，按钮有细微的缩放效果 */
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.btn:disabled {
+    background-color: var(--line-border-empty);
+    cursor: not-allowed;
+}

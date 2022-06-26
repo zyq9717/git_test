@@ -1,0 +1,176 @@
+/* 已解决： */
+/* 善用伪类！ */
+/* 子级宽度设置为父级100% 也还受到父级padding的压缩 */
+/* outline到底是什么？ 轮廓？ */
+/* :focus的鼠标状态到底是什么 */
+/* background-color: transparent; 是透明吗？ */
+
+/* 按钮button是行内还是块级？ */
+/* 按钮设置为行内块的原因是什么 */
+
+/* input是行内 还是块级 */
+
+/* 梳理所有伪类元素 */
+/* 梳理所有的css函数 cubic-bezier() */
+
+
+/* 1. 引入外币资源文件-自定义字体模块 */
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+/* 2. 全局样式-css3盒子模型 */
+* {
+  box-sizing: border-box;
+}
+
+/* 3. body */
+body {
+  background-color: steelblue;
+  color: #fff;
+  font-family: 'Muli', sans-serif;
+
+  /* flex布局 */
+  /* 只是为了让body内所有盒子水平垂直对齐 */
+  display: flex;
+  /* 改变主轴为y轴 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* 4. 整个form表单样式 */
+/* 背景颜色 内边距 边框四角 */
+.container {
+  background-color: rgba(0, 0, 0, .4);
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+/* 5. form表单标题 */
+/* 居中对齐 下外边距 */
+.container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* 6. form表单的a标签 */
+/* 去掉下划线 颜色 */
+.container a {
+  text-decoration: none;
+  color: lightblue;
+}
+
+/* 7. form表单的按钮 */
+/* 鼠标样式 行内块 宽度 背景颜色 内边距 字体样式 字体大小 边框为0  边角 */
+
+/* 按钮是行内 还是块级？ */
+.btn {
+  cursor: pointer;
+
+  /* 设置为行内块的目的是什么 */
+  display: inline-block;
+  /* 即使是父级的100%宽度 也还收到内边距padding的压缩影响吗？ */
+  /* 是的 */
+  width: 100%;
+  background-color: lightblue;
+  padding: 15px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 0;
+  border-radius: 5px;
+}
+
+/* 7.1 鼠标聚焦在按钮上时 */
+/* outline 变为0 */
+
+.btn:focus {
+  outline: 0;
+}
+
+/* 7.2 鼠标点击按钮时*/
+/* 添加动画效果 */
+/* 点击按钮时 按钮缩小为原来的0.98倍 */
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* 8. 文本部分 */
+/* 上外边距 */
+.text {
+  margin-top: 30px;
+}
+
+/* 9. 表单控件 邮箱和密码所在盒子 */
+/* 相对定位 上下外边距 左右外边距为0  宽度 */
+.form-control {
+  position: relative;
+  margin: 20px 0 40px;
+  width: 300px;
+}
+
+/* 10. 表单控件下的输入框 */
+/* 背景颜色 边框为0 底边框 块级 宽度 上下内边距 字体大小 颜色 */
+.form-control input {
+  /* 透明吗? */
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #fff solid;
+
+  /* 为什么要设置成块级？ */
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #fff;
+}
+
+/* 11. 输入框的伪类：当鼠标聚焦和valid */
+/* :valid 如果 input 元素中输入的值为合法的 设置样式 */
+/* :valid 选择器在表单元素的值需要根据指定条件验证时设置指定样式。 */
+/* 注意: :valid 选择器只作用于能指定区间值的元素，例如 input 元素中的 min 和 max 属性，及正确的 email 字段, 合法的数字字段等。 */
+
+/* 输入框边框消失 底边框变色 */
+.form-control input:focus,
+form-control input:valid {
+  outline: 0;
+  border-bottom-color: lightblue;
+}
+
+/* 12. 表单控件的label */
+/* 绝对定位（表单控件的相对定位就是为其准备的 移动到input的上面）  */
+/* 但这样不会压住input吗？ */
+.form-control label {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  pointer-events: none;
+}
+
+/* pointer-events 属性定义元素是否对指针事件做出反应。 */
+/* pointer-events: auto|none; */
+
+/* 13. label的span标签 （通过js动态添加的吗？） */
+/* 行内块元素 字体大小 最小宽度 过渡效果 */
+.form-control label span {
+  display: inline-block;
+  font-size: 18px;
+  min-width: 5px;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* cubic-bezier 是什么 */
+
+/* 14. 伪类 鼠标聚焦在输入框时 相邻兄弟元素label的span样式 */
+/* 颜色 动画效果 向上移动30px */
+.form-control input:focus+label span,
+.form-control input:valid+label span {
+  color: lightblue;
+  transform: translateY(-30px);
+}
+
+/* 这里的:focus 就充当了鼠标点击事件的效果 */
+/* 首先通过js为每一个label添加span 然后使用css为span设置样式 又通过 :focus 鼠标点击input 获取到焦点时 为span赋予后续样式 */
+/* 在这里为span添加动画效果，在js中为span添加过渡效果 */

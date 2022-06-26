@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- 布局写法 -->
+<!-- 总是一个 container 盒子将所有元素包裹在内 -->
+<!-- 邮箱表单和密码表单是分开在不同的div盒子中，和自己的label搭配 -->
+
+<body>
+    <div class="container">
+        <h1>Please Login</h1>
+        <form>
+            <!-- 1. 邮箱 -->
+
+            <!-- 注意这一个盒子 -->
+            <div class="form-control">
+                <!-- required 属性是什么意思 -->
+                <input type="text" required>
+                <!-- label标签是什么作用 -->
+                <label>Email</label>
+            </div>
+
+            <!-- 2. 密码 -->
+
+            <div class="form-control">
+                <input type="password" required>
+                <label>Password</label>
+            </div>
+            <!-- label的for属性不应该与input的id属性一致吗，这样才能捆绑起来吧 -->
+            <!-- 难道是通过js为input添加id和为label添加for？ -->
+            <!-- 这个案例就没考虑要将label和input捆绑起来 -->
+
+            <button class="btn">Login</button>
+
+            <p class="text">Don't have an account? <a href="#">Register</a></p>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

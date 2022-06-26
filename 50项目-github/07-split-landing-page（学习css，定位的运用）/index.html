@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!-- 效果： -->
+<!-- 左边图片，右边图片：右边图片压在左边图片上面，
+    鼠标放在右边图片，右边图片向左移动，左边图片不变，压住更多的左边图片
+    鼠标放在左边图片，右边图片向右移动，露出更多的左边图片，左边图片并不移动，最后左边图片放大 -->
+<!-- 其实移动的都是右边图片，左边图片只是放大 -->
+
+<!-- 图片是通过背景图片插入的  但是上面的颜色（遮罩层）是怎么形成的？ 伪元素？ 颜色（遮罩层）的动画是与背景图片一致的 -->
+
+<body>
+    <!-- 1. 容器盒子 -->
+    <div class="container">
+        <!-- 1.1 左图片盒子 -->
+        <!-- 但图片是通过背景图片插入的 -->
+        <div class="split left">
+            <!-- 标题 -->
+            <h1>Playstation 5</h1>
+            <!-- 按钮 -->
+            <!-- 按钮使用的是 a标签 点击就能够去往另一个页面 -->
+            <a href="#" class="btn">Buy Now</a>
+        </div>
+
+        <div class="split right">
+            <h1>XBox Series X</h1>
+            <a href="#" class="btn">Buy Now</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+/* 绝对定位，在这些做过的大部分案例中，基本是用来移动位置的 */
+/* flex布局，一般是用来让 子项 水平垂直对齐的 如body元素的子项  其他元素的子项*/
+
+/* 凡是出现动画效果 transform ，必定会配合transition给transform添加过渡效果 */
+
+/* 两个类名紧挨着，第二个类名必定是通过js动态添加，然后让元素应用相关样式 */
+
+/* 很喜欢使用flex布局 */
+
+/* 1. 引入外部资源文件-自定义字体模块 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* 2. 全局样式-css3盒子模型 */
+* {
+    box-sizing: border-box;
+}
+
+/* 3. body */
+body {
+    background-color: #efedd6;
+    font-family: 'Roboto', sans-serif;
+
+    /* flex布局 */
+    display: flex;
+    /* 设置主轴为y轴 */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* 只是x轴溢出隐藏 */
+    /* y轴溢出，会形成滚动条 */
+    overflow-x: hidden;
+    margin: 0;
+}
+
+/* 4. h1 */
+h1 {
+    margin: 10px;
+}
+
+/* 5. 给所有box设置样式 */
+.box {
+    background-color: steelblue;
+    color: #fff;
+
+    /* flex布局 只是为了让里面的h2水平垂直对齐吗？ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 400px;
+    height: 200px;
+
+    border-radius: 10px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, .3);
+
+    /* 动画效果：沿着x轴移动400%   谁的400%？父元素的吗？ */
+    transform: translateX(400%);
+    /* 沿着x轴向右移动400% */
+    /* 给transform设置过渡效果 */
+    transition: transform 0.4s ease;
+    margin: 10px;
+}
+
+/* 获取偶数位的box元素 */
+.box:nth-of-type(even) {
+    /* 动画效果：偶数位的box再移动回去400% */
+    /* 会覆盖之前偶数位的transform */
+    /* 会覆盖，而不是在向右移动400%之后，再向左移动400% */
+    transform: translateX(-400%);
+
+    /* 偶数位的box 沿着x轴向左移动400% */
+
+    /* 400%是谁的400% */
+
+    /* 是设置transform的元素自身宽度的400% */
+}
+
+
+
+/* 当box元素添加show类名时 */
+.box.show {
+    /* 动画效果  全部回到原来的位置？ */
+    transform: translateX(0);
+}
+
+/* h2 */
+.box h2 {
+    font-size: 45px;
+}

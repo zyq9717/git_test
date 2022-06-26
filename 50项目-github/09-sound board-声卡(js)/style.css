@@ -1,0 +1,57 @@
+/* 学习点： */
+/* 是直接给创建的btn设置属性 而不是给audio */
+/* flex布局的作用：子项能够水平垂直居中对齐 */
+/* 使用伪类选择器，能够替代一些js的DOM操作 */
+
+
+/* 1. 引入外部资源文件-自定义字体模块 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+/* 2. 全局样式 */
+* {
+    box-sizing: border-box;
+}
+
+/* 3. body */
+body {
+    background-color: rgb(161, 100, 223);
+    font-family: 'Poppins', sans-serif;
+
+    /* flex布局 */
+    display: flex;
+    /* 子项超过一行，换行 */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+
+}
+
+/* 3. btn */
+/* .btn 是从哪里出来的？ 通过js创建的 */
+.btn {
+    background-color: rebeccapurple;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    margin: 1rem;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    /* 继承父级 */
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* 4. 经过btn */
+/* 透明度 */
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 5. btn获得焦点时 */
+.btn:focus {
+    outline: none;
+}

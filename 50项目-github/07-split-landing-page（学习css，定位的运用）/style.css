@@ -1,0 +1,253 @@
+/* rem设置问题 */
+/* 这个案例几乎所有单位都用到了rem */
+/* h1 和 按钮(使用的是a) 都是用了绝对定位 用意是什么 都是为了移动自身的位置 */
+/* 按钮还是用了flex布局 只是为了里面的文字水平垂直居中对齐 */
+/* h1 和 按钮边框的颜色为什么都是白色？ 修改其父容器的背景颜色后显示出来 */
+
+/* 技巧：事实证明 使用 定位 更容易调整元素在页面的位置 h1和按钮就是 不用定位，其他方法较为麻烦 */
+
+/* 忘记了子绝父相的意义是什么 */
+
+/* 伪元素对盒子内其他元素有什么影响？ */
+
+
+/* 相对定位不脱标 也就是说移动了之后，原来的位置会保留，依旧占据文档流空间  所以 不影响原来的布局 */
+/* 绝对定位脱标 移动了之后，原来的位置不保留，不会占据文档流 所以 会影响原来的布局 */
+/* 但两者都会悬浮在其他元素上面 */
+/* 和其父元素一样高宽的伪元素遮罩层，是文档流，所以不会影响到绝对定位的h1和按钮 */
+
+/* 左边两个插入split前面的伪元素也添加了绝对定位  去过去掉绝对定位就看不见插入的两个元素了 */
+/* 这是因为父级split也是绝对定位缘故吗 */
+/* 绝对定位会上浮，里面的子级如果不加会来到下面？ */
+
+
+/* 1. 引入外部资源-自定义字体模块 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* 2. :root 和 css变量 */
+:root {
+    /* 左边图片颜色  0.7透明效果 */
+    --left-bg-color: rgba(87, 84, 236, 0.7);
+    /* 右边图片颜色 0.8透明效果 */
+    --right-bg-color: rgba(43, 43, 43, 0.8);
+    /* 左边按钮 鼠标悬浮 颜色 完全不透明 */
+    --left-btn-hover-color: rgba(87, 84, 236, 1);
+    /* 右边按钮 鼠标炫富 颜色 完全不透明 */
+    --right-btn-hover-color: rgba(28, 122, 28, 1);
+
+    /* 鼠标悬停 宽度变为页面body的75% */
+    --hover-width: 75%;
+    /* 另一图片 宽度变为页面body25% */
+    --other-width: 25%;
+    /* 速度1s */
+    --speed: 1000ms;
+}
+
+/* 2. 全局样式-css3盒子模型 */
+* {
+    box-sizing: border-box;
+}
+
+/* 3. body样式 */
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+/* 4. h1 */
+h1 {
+    /* 单位是rem */
+    /* 需要提前设置 */
+    font-size: 4rem;
+    color: #fff;
+
+    /* 绝对定位 脱标*/
+    position: absolute;
+    /* 相对于父级移动 */
+    left: 50%;
+    top: 20%;
+    /* 向左移动自身宽度的50% */
+    transform: translatex(-50%);
+    /* 以上使得h1水平垂直对齐 */
+
+    /* 文本不换行 */
+    white-space: nowrap;
+}
+
+/* 5. btn */
+
+.btn {
+    /* 绝对定位 */
+    /* 只是为了移动自身距离 */
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+
+    /* 按钮的父级设置了绝对定位 子级如果不设置定位 也不会受影响 依旧能够看到  */
+
+    /* flex布局 */
+    /* 子项强制在一行  水平垂直对齐  也就是里面的位子 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    text-decoration: none;
+    color: #fff;
+    border: #fff solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    /* 字母大小 */
+    text-transform: uppercase;
+    width: 15rem;
+    padding: 1.5rem;
+}
+
+/* 6. 左边: h1 和 按钮 所在的父级盒子  当鼠标悬浮按钮时 */
+/* 鼠标悬浮时未显示  右边的按钮压住了左边的 */
+
+.split.left .btn:hover {
+    background-color: var(--left-btn-hover-color);
+    border-color: var(--left-btn-hover-color);
+}
+
+/* 7. 右边: h1 和 按钮 所在的父级盒子  当鼠标悬浮按钮时 */
+.split.right .btn:hover {
+    background-color: var(--right-btn-hover-color);
+    border-color: var(--right-btn-hover-color);
+}
+
+/* 8. container 盒子 */
+.container {
+    /* 相对定位 */
+    position: relative;
+    /* 和body元素一样大小 */
+    width: 100%;
+    height: 100%;
+    background: #333;
+}
+
+
+/* 9. 左右两边的两个大盒子 */
+.split {
+    /* 绝对定位 子绝父相 */
+    position: absolute;
+
+    /* 宽度只有父级container的一半 所以才能够左右对称显示 */
+    width: 50%;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+/* 因为h1和按钮的父级 split加了绝对定位 对于 绝对定位的h1和阿牛来说 位偏移都是相对于加了定位父级来说的 
+正常来说 左右两个h1和阿牛都应该在各自父级的内部移动 但为什么全部都在左边盒子？   */
+
+/* 10. 左边大盒子 */
+.split.left {
+    /* split盒子是绝对定位  left = 0 就是与左边对齐的意思？ */
+    left: 0;
+    background: url('ps.jpg');
+    background-repeat: no-repeat;
+    /* 按照图片的比例放大或者缩小至充满容器，而不是按照容器的比例大小来缩放 */
+    background-size: cover;
+
+}
+
+/* 11. 左边大盒子前面插入伪元素 */
+/* 遮罩层 */
+/* 利用伪元素插入遮罩层 */
+.split.left::before {
+    content: '';
+
+    /* 为什么要用绝对定位 */
+    /* 是因为父级加了相对定位吗 */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--left-bg-color);
+}
+
+/* 因为h1 和 按钮都是 绝对定位 脱标 遮罩层又是和父元素一般宽高 所以遮罩层与h1和按钮互不影响 */
+
+/* 12. 右边大盒子 */
+.split.right {
+    /* 如果不设置 right为0 整个右边的split会跑到左边 */
+    /* 这也是为什么在给split设置了绝对定位之后，h1和按钮会在左边的缘故 */
+    /* 这是因为split的父级 container设置了绝对定位 同样设置了绝对定位的两个split会以有定位的父级为移动标准 */
+    /* 但是一开始没有给两个split设置 位偏移 所以 top和left都默认为0 */
+    /* 因为 split的高度和父级container一样 但宽度不一样 top看似没有变化 left都为0 全部跑到左边 右边的split会压住左边的 */
+    right: 0;
+    background: url('xbox.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* 13. 右边大盒子前面插入伪元素 */
+.split.rigth::before {
+    content: '';
+    /* 插入的before伪元素 父级是绝对定位 会上浮  作为子级的before伪元素 如果不设置绝对定位 为什么不显示？ */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--right-bg-color);
+}
+
+/* 伪元素的默认显示为行内块模式，不可以设置宽高。 */
+/* 设置了定位以后脱离标准流则宽高设置生效。或者可以设置display:block或inline-block，更改显示模式 */
+/* 诸如此类的伪类:before的默认displayCSS 属性值为inline.   默认情况下是display: inline; */
+/* 如果它们没有内容，它们不占用任何宽度。因此，如果您没有声明display: block; */
+/* 并且您有一个空的内容声明，例如content: "";，它在场景 1 中根本不会占用任何宽度。 */
+
+/* 伪元素是行内块元素，content没有内容，伪元素就没有宽高，设置宽度也不行吗 */
+/* 所以就不会显示 */
+/* 设置绝对定位 脱标 此时设置宽高生效 在页面显示 */
+
+
+/* 14. 给 左边split 以及左右伪元素 */
+.split.right,
+.split.left,
+.split.rigth::before,
+.split.left::before {
+    /* 添加过渡效果 对立面所有的元素的动画效果 */
+    transition: all var(--speed) ease-in-out;
+}
+
+
+/* 15. 通过js给container 添加 不同的类名 .hover-left 和 .hover-right 应该是在不同的情况下为container添加不同的类名*/
+.hover-left .left {
+    /* 左边   宽度变为父级的75% */
+    width: var(--hover-width);
+}
+
+.hover-left .right {
+    /* 右边  宽度变为父级的25% */
+    width: var(--other-width);
+}
+
+.hover-right .right {
+    /* 右边 宽度变为父级的75% */
+    width: var(--hover-width);
+}
+
+.hover-right .left {
+    /* 左边 宽度变为父级的25% */
+    width: var(--other-width);
+}
+
+/* 16. 媒体查询 */
+@media (max-width: 800px) {
+    h1 {
+        font-size: 2rem;
+        top: 30%;
+    }
+
+    .btn {
+        padding: 1.2rem;
+        width: 12rem;
+    }
+}
